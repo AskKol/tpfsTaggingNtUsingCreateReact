@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 function AddTagTextInput(props)
 {
@@ -19,5 +20,15 @@ function AddTagTextInput(props)
                 height: props.height ? props.height : 25
             }} />
     );
+}
+AddTagTextInput.propTypes= {
+    placeHolder: PropTypes.string,
+    maxLength: PropTypes.number,
+    width: PropTypes.string,
+    borderRadius: PropTypes.number,
+    paddingRight: PropTypes.number,
+    outlineColor: PropTypes.string.isRequired,
+    textIndent: PropTypes.number,
+    height: PropTypes.number
 }
 export default AddTagTextInput;

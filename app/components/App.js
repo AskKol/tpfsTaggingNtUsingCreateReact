@@ -15,7 +15,7 @@ function App(props)
             <TagLabel value={"Rachel Jones"} borderStyle={"solid"} borderColor={"green"} imageSource={"https://github.com/askkol.png"} showImage={true} />
             <TagLabel value={"CDV"} borderStyle={"solid"} borderColor={"red"} />
             <TagLabel value={"Custom tag"} borderStyle={"solid"} borderColor={"#9e9e23"} />
-            <AddTagTextBox borderWidth={1} borderStyle={"solid"} borderColor={"grey"} showButton={"true"} />
+            <AddTagTextBox borderWidth={1} borderStyle={"solid"} borderColor={"grey"} showButton={true} />
         </div>
     );
 }

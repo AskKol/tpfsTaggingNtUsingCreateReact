@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 function TagLabelButton(props)
 {
@@ -20,5 +21,10 @@ function TagLabelButton(props)
 
             }} />
     )
+}
+TagLabelButton.propTypes= {
+    backgroundColor: PropTypes.string,
+    color: PropTypes.string.isRequired,
+    top:PropTypes.number
 }
 export default TagLabelButton;

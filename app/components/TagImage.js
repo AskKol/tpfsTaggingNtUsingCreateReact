@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 function TagImage(props)
 {
@@ -12,5 +13,11 @@ function TagImage(props)
             height: props.height ? props.height : 18
         }} />
     );
+}
+TagImage.propTypes= {
+    imageSource: PropTypes.string.isRequired,
+    paddingRight: PropTypes.number,
+    paddingLeft: PropTypes.number,
+    height:PropTypes.number
 }
 export default TagImage

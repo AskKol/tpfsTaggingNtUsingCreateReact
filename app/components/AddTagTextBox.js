@@ -1,6 +1,8 @@
 import React from 'react';
 import AddTagTextInput from './AddTagTextInput';
 import AddTagTextBoxButton from './AddTagTextBoxButton';
+import PropTypes from 'prop-types';
+
 
 function AddTagTextBox(props)
 {
@@ -12,7 +14,7 @@ function AddTagTextBox(props)
     var aBackgroundColor = props.backgroundColor ? props.backgroundColor : "white";
     var createButton = null;
 
-    if (props.showButton != null)
+    if (props.showButton != null && props.showButton === true)
     {
         createButton = <AddTagTextBoxButton />
     }
@@ -27,7 +29,7 @@ function AddTagTextBox(props)
                     borderRadius: aBorderRadius,
                     backgroundColor: aBackgroundColor,
                     position: "relative",
-                    marginBottom:props.marginBottom?props.marginBottom:10,
+                    marginBottom: props.marginBottom ? props.marginBottom : 10,
                     width: props.width ? props.width : 230,
                     verticalAlign: "middle"
                 }
@@ -36,5 +38,12 @@ function AddTagTextBox(props)
             {createButton}
         </span>
     );
+}
+AddTagTextBox.propTypes = {
+    borderWidth: PropTypes.number.isRequired,
+    borderStyle: PropTypes.string.isRequired,
+    borderColor: PropTypes.string.isRequired,
+    borderRadius: PropTypes.number,
+    backgroundColor:PropTypes.string
 }
 export default AddTagTextBox;

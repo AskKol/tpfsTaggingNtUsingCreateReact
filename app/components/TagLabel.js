@@ -50,6 +50,7 @@ TagLabel.propTypes={
     borderColor: PropTypes.string,
     paddingLeft: PropTypes.number,
     paddingRight: PropTypes.number,
-    value:PropTypes.string.isRequired
+    value: PropTypes.string.isRequired,
+    showImage:PropTypes.bool
 }
 export default TagLabel;

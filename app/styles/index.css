@@ -1,0 +1,7 @@
+body {
+    background-color: whitesmoke;
+}
+
+input[type="button"]:hover {
+    font-weight: bold;
+}

@@ -1,27 +1,37 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function AddTagTextInput(props)
+class AddTagTextInput extends React.Component
 {
+    constructor(props)
+    {
+        super(props);
+    }
 
-    return (
-        <input
-            type="text"
-            placeholder={props.placeHolder ? props.placeHolder : "+ Add label"}
-            maxLength={props.maxLength ? props.maxLength : 23}
-            style={{
-                //you can set properties directly using props as well
-                width: props.width ? props.width : "100%",
-                borderRadius: props.borderRadius ? props.borderRadius : 5,
-                paddingRight: props.paddingRight ? props.paddingRight : 10,
-                outlineColor: props.outlineColor,
-                textIndent: props.textIndent ? props.textIndent : 5,
-                boxSizing: "border-box",
-                height: props.height ? props.height : 25
-            }} />
-    );
+    render()
+    {
+        return (
+            <input
+               
+                id="txtAddATag"
+                type="text" name="txtAddATag"
+                placeholder={this.props.placeHolder ? this.props.placeHolder : "+ Add label"}
+                maxLength={this.props.maxLength ? this.props.maxLength : 23}
+                style={{
+                    //you can set properties directly using props as well
+                    width: this.props.width ? this.props.width : "100%",
+                    borderRadius: this.props.borderRadius ? this.props.borderRadius : 5,
+                    paddingRight: this.props.paddingRight ? this.props.paddingRight : 10,
+                    outlineColor: this.props.outlineColor,
+                    textIndent: this.props.textIndent ? this.props.textIndent : 5,
+                    boxSizing: "border-box",
+                    height: this.props.height ? this.props.height : 25
+                }}
+                onChange={this.props.onChange} />
+        );
+    }
 }
-AddTagTextInput.propTypes= {
+AddTagTextInput.propTypes = {
     placeHolder: PropTypes.string,
     maxLength: PropTypes.number,
     width: PropTypes.string,
@@ -29,6 +39,7 @@ AddTagTextInput.propTypes= {
     paddingRight: PropTypes.number,
     outlineColor: PropTypes.string.isRequired,
     textIndent: PropTypes.number,
-    height: PropTypes.number
+    height: PropTypes.number,
+    onChange: PropTypes.func.isRequired
 }
 export default AddTagTextInput;

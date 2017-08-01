@@ -13,7 +13,7 @@ function TagTextArea(props)
                 marginBottom:props.marginBottom?props.marginBottom:10
             }
         }>
-            < textarea rows={props.rows?props.rows:4} cols={props.cols?props.cols:50}>
+            < textarea rows={props.rows?props.rows:4} cols={props.cols?props.cols:50} id="txtAutoComplete" name="txtAutoComplete">
             </textarea>
         </div>
     );

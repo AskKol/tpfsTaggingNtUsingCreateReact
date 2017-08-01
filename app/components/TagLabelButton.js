@@ -8,6 +8,7 @@ function TagLabelButton(props)
         <input
             type="button"
             value="x"
+            onClick={props.onClick}
             style={{
                 border: "none",
                 backgroundColor: props.backgroundColor ? props.backgroundColor : "transparent",
@@ -25,6 +26,6 @@ function TagLabelButton(props)
 TagLabelButton.propTypes= {
     backgroundColor: PropTypes.string,
     color: PropTypes.string.isRequired,
-    top:PropTypes.number
+    top: PropTypes.number
 }
 export default TagLabelButton;

@@ -5,3 +5,34 @@ body {
 input[type="button"]:hover {
     font-weight: bold;
 }
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: white;
+    width: 100%;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    border-radius: 5%
+}
+
+    .dropdown-content a {
+        color: black;
+        padding: 5px 5px;
+        text-decoration: none;
+        display: block;
+    }
+
+    .dropdown-content li {
+        list-style-type: none;
+    }
+
+    .dropdown-content ul {
+        padding: 5px;
+        margin-top: 5px;
+    }

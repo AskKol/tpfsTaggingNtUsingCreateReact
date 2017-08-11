@@ -14,15 +14,24 @@ class DropDownMenu extends React.Component
             menuDisplayType: this.props.displayType
 
         }
+        this.onClickATag = this.onClickATag.bind(this);
     }
 
     componentWillReceiveProps() {
         this.setState(() => {
-            return({
+            return ({
+                dropDownMenuList: this.props.dropDownMenuList ,
                 menuDisplayType: this.props.displayType
             })
         })
     }
+
+    onClickATag(itemName,event) {
+        console.log(itemName);
+        this.props.getATagText(itemName);
+    }
+
+
     render()
     {
         console.log("DropDownMenu " + this.props.displayType + " " + this.state.menuDisplayType);
@@ -35,7 +44,7 @@ class DropDownMenu extends React.Component
                     {
                         return (
                             <li key={anItem.id}>
-                                <span><a href="#">
+                                <span><a href="#" onClick={this.onClickATag.bind(this,anItem.name)}>
                                     {anItem.image && <TagImage imageSource={anItem.image} />} {anItem.name}
                                 </a></span>
                             </li>

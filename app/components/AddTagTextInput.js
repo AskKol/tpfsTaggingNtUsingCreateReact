@@ -8,61 +8,130 @@ class AddTagTextInput extends React.Component
     {
         super(props);
 
-        this.state= {
-            dropDownMenuList:
+        this.state = {
+            mainDropDownMenuList:
             [
                 {
                     id: 1,
                     name: "Kola",
                     type: "consultant",
-                    image:null
+                    image: null
                 },
-                 {
+                {
                     id: 2,
                     name: "Tola",
                     type: "consultant",
-                    image:null
+                    image: null
                 },
-                  {
+                {
                     id: 3,
                     name: "Roy",
                     type: "consultant",
-                    image:null
+                    image: null
                 }
             ],
-            showDropDownMenu:"none"
+            showDropDownMenu: "none",
+            dropDownToShow: [],
+            txtAddATagValue: ''
         }
-        this.onChangeDistributor = this.onChangeDistributor.bind(this);
+        //  if (this.state.dropDownToShow===null) {
+        //  this.state.dropDownToShow = this.state.dropDownMenuList ;
+        //}
+        // this.onChangeDistributor = this.onChangeDistributor.bind(this);
+        this.getTex4ATag = this.getTex4ATag.bind(this);
     }
-
-    onChangeDistributor(event) {
+    getTex4ATag(event)
+    {
+        console.log("getTex4ATag:"+event);
+        this.setState({
+            txtAddATagValue: event,
+             showDropDownMenu:
+                        "none"
+        });
         this.props.onChange(event);
+    }
+    onChangeDistributor(event)
+    {
         let e = event.target.value;
-        console.log("onChangeDistributor "+ e);
-        if (e != null &&  e.length>0) {
-            this.setState(() => {
-              return   ( {
-                    showDropDownMenu:
-                        "block"
-                })
-                   
-            });
-        }
-        if (e.length<=0) 
+        this.setState({
+            txtAddATagValue: e
+        }, () => { console.log("this.state.txtAddATagValue:" + this.state.txtAddATagValue) });
+
+        
+        this.props.onChange(e);
+
+        console.log("onChangeDistributor " + e);
+        if (e != null && e.length > 0)
         {
-            this.setState(() => {
-               return {
+           
+            let holder = this.state.mainDropDownMenuList
+                .filter(o => o.name.toLowerCase().indexOf(e.toLowerCase()) !== -1);
+            console.log(holder);
+
+            if (holder !== null && holder.length > 0)
+            {
+                //this.state.dropDownToShow.length = 0;
+                this.setState(() =>
+                {
+                    this.state.dropDownToShow.length = 0;
+                    return { dropDownToShow: holder.map((o) => { this.state.dropDownToShow.push(o) }) }
+                    //prevState.dropDownToShow = holder;
+
+                }
+
+                );
+                this.setState((prevState) =>
+                {
+                    return {
+                        dropDownToShow: this.state.dropDownToShow.filter(x => x != 'undefined')
+                    }
+                });
+                this.setState(() =>
+                {
+                    console.log(JSON.stringify(this.state));
+                    return ({
+                        showDropDownMenu:
+                        "block"
+                    })
+
+                });
+            } else
+            {
+                this.setState(() =>
+                {
+                    return {
+                        showDropDownMenu:
+                        "none",
+                        dropDownToShow: []
+                    }
+
+
+                });
+
+            }
+
+            console.log(this.state.dropDownToShow);
+
+
+        }
+        if (e.length <= 0) 
+        {
+            this.setState(() =>
+            {
+                return {
                     showDropDownMenu:
-                       "none"
-               }
-                   console.log("onChangeDistributor after "+ prevState.showDropDownMenu);
-               
+                    "none"
+                }
+                console.log("onChangeDistributor after " + prevState.showDropDownMenu);
+
             });
         }
+        console.log("this.state.txtAddATagValue:" + this.state.txtAddATagValue);
     }
 
     render()
     {
+
         return (
             <div className="dropDown">
                 <input
@@ -81,9 +150,9 @@ class AddTagTextInput extends React.Component
                         boxSizing: "border-box",
                         height: this.props.height ? this.props.height : 25
                     }}
-                    onChange={this.onChangeDistributor.bind(this)} />
+                    onChange={(e) => this.onChangeDistributor(e)} value={this.state.txtAddATagValue}/>
 
-               <DropDownMenu displayType={this.state.showDropDownMenu} dropDownMenuList={this.state.dropDownMenuList}/>
+                <DropDownMenu displayType={this.state.showDropDownMenu} dropDownMenuList={this.state.dropDownToShow} getATagText={this.getTex4ATag.bind(this)} />
             </div>
         );
     }

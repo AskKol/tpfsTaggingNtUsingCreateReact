@@ -36,3 +36,4 @@ input[type="button"]:hover {
         padding: 5px;
         margin-top: 5px;
     }
+    .dropdown-content a:hover {background-color: #f1f1f1}

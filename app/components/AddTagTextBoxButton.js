@@ -1,37 +1,45 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function TagTextBoxButton(props)
+class TagTextBoxButton extends React.Component
 {
     // let aBackgroundColor = this.props.textBoxButtonBackgroundColor;
+    constructor(props)
+    {
+        super(props);
 
-    return (
-        <button
-            type="button"
-            value={props.value ? props.value : "Create"}
-            disabled={!props.isDisable}
-            onClick={props.onClick}
-            style={
-                {
-                    border: props.border ? props.border : "none",
-                    backgroundColor: props.backgroundColor ? props.backgroundColor : "tomato",
-                    cursor: "pointer",
-                    outlineColor: props.outlineColor ? props.outlineColor : "transparent",
-                    position: "absolute",
-                    right: 0,
-                    top: 1,
-                    height: props.height ? props.height : 25,
-                    borderLeftStyle: props.borderLeftStyle ? props.borderLeftStyle : "solid",
-                    borderLeftWidth: "thin",
-                    borderLeftColor: "grey",
-                    borderTopRightRadius: props.borderTopRightRadius ? props.borderTopRightRadius : 3,
-                    borderBottomRightRadius: props.borderBottomRightRadius ? props.borderBottomRightRadius : 3
-                }
-            }>
-            {props.value ? props.value : "Create"}
-        </button >
-    )
+    }
 
+    render()
+    {
+        return (
+            <button
+                type="button"
+                value={this.props.value ? this.props.value : "Create"}
+                disabled={!this.props.isDisable}
+                onClick={this.props.onClick}
+                style={
+                    {
+                        border: this.props.border ? this.props.border : "none",
+                        backgroundColor: this.props.backgroundColor ? this.props.backgroundColor : "tomato",
+                        cursor: "pointer",
+                        outlineColor: this.props.outlineColor ? this.props.outlineColor : "transparent",
+                        position: "absolute",
+                        right: 0,
+                        top: 1,
+                        height: this.props.height ? this.props.height : 25,
+                        borderLeftStyle: this.props.borderLeftStyle ? this.props.borderLeftStyle : "solid",
+                        borderLeftWidth: "thin",
+                        borderLeftColor: "grey",
+                        borderTopRightRadius: this.props.borderTopRightRadius ? this.props.borderTopRightRadius : 3,
+                        borderBottomRightRadius: this.props.borderBottomRightRadius ? this.props.borderBottomRightRadius : 3
+                    }
+                }>
+                {this.props.value ? this.props.value : "Create"}
+            </button >
+        )
+
+    }
 }
 TagTextBoxButton.propTypes = {
     value: PropTypes.string,

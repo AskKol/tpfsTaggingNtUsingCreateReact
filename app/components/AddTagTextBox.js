@@ -16,16 +16,16 @@ class AddTagTextBox extends React.Component
          activateCreateBtn:''   
         }
 
-        this.handleEventChange = this.handleEventChange.bind(this);
+       //this.handleEventChange = this.handleEventChange.bind(this);
         this.handleClick = this.handleClick.bind(this);
     }
     
-    handleEventChange(event) {
-        let e = event.target.value;
+    handleEventChange(value) {
+        let e = value;
 
         this.setState(function () {
             return { activateCreateBtn: e, tagTextBoxValue:e } 
-        });
+        },()=>{console.log("handleEventChange:"+this.state.tagTextBoxValue);});
        
     }
 
@@ -65,7 +65,7 @@ class AddTagTextBox extends React.Component
                         verticalAlign: "middle"
                     }
                 }>
-                {<AddTagTextInput outlineColor={"tomato"} onChange={this.handleEventChange.bind(this)}/>}
+                {<AddTagTextInput outlineColor={"tomato"} onChange={(e)=>this.handleEventChange(e)}/>}
                 {this.props.showButton && <AddTagTextBoxButton isDisable={this.state.activateCreateBtn} onClick=
                     { this.handleClick.bind(this) } />}
             </span>

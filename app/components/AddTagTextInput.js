@@ -34,10 +34,7 @@ class AddTagTextInput extends React.Component
             dropDownToShow: [],
             txtAddATagValue: ''
         }
-        //  if (this.state.dropDownToShow===null) {
-        //  this.state.dropDownToShow = this.state.dropDownMenuList ;
-        //}
-        // this.onChangeDistributor = this.onChangeDistributor.bind(this);
+      
         this.getTex4ATag = this.getTex4ATag.bind(this);
     }
     getTex4ATag(event)

@@ -38,7 +38,11 @@ class DropDownMenu extends React.Component
         return (
 
             <div className="dropdown-content"
-                style={{ display: this.props.displayType}}>
+                style={
+                    { display: this.props.displayType,
+                        width: this.props.width !=null?this.props.width:"100%"
+                    
+                }}>
                 <ul>
                     {this.state.dropDownMenuList.map((anItem) =>
                     {

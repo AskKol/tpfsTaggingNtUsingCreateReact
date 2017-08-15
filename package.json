@@ -16,6 +16,8 @@
   "author": "Kola",
   "license": "ISC",
   "dependencies": {
+    "babel-polyfill": "^6.23.0",
+    "draft-js": "^0.10.1",
     "prop-types": "^15.5.10",
     "react": "^15.6.1",
     "react-dom": "^15.6.1"

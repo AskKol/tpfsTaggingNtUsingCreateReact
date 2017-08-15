@@ -149,7 +149,9 @@ class AddTagTextInput extends React.Component
                     }}
                     onChange={(e) => this.onChangeDistributor(e)} value={this.state.txtAddATagValue}/>
 
-                <DropDownMenu displayType={this.state.showDropDownMenu} dropDownMenuList={this.state.dropDownToShow} getATagText={this.getTex4ATag.bind(this)} />
+                <DropDownMenu displayType={this.state.showDropDownMenu}
+                    dropDownMenuList={this.state.dropDownToShow}
+                    getATagText={this.getTex4ATag.bind(this)}/>
             </div>
         );
     }

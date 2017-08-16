@@ -1,11 +1,43 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import DropDownMenu from './DropDownMenu';
-import { Editor, EditorState, RichUtils, CompositeDecorator,ContentState  } from 'draft-js';
+import { Editor, EditorState, RichUtils, CompositeDecorator, ContentState } from 'draft-js';
 
 const SearchHighlight = (props) => (
-  <span className="highlight">{props.children}</span>
+    <span className="highlight">{props.children}</span>
 );
+
+
+const generateDecorator = (item2Highlight) =>
+{
+    const regex = new RegExp(item2Highlight, 'g');
+    return new CompositeDecorator([
+        {
+            strategy: (contentBlock, callback) =>
+            {
+                if (item2Highlight !== '')
+                {
+                    findWithRegex(regex, contentBlock, callback);
+                }
+            },
+            component: SearchHighlight,
+        }
+    ]);
+}
+
+const findWithRegex = (regex, contentBlock, callback) =>
+{
+    const text = contentBlock.getText();
+    let matchArr, start, end;
+    while ((matchArr = regex.exec(text)) !== null)
+    {
+        start = matchArr.index;
+        end = start + matchArr[0].length;
+        callback(start, end);
+    }
+};
+
+
 class TagTextArea extends React.Component
 {
     constructor(props)
@@ -67,123 +99,21 @@ class TagTextArea extends React.Component
                 console.log("aHolder:" + aHolder);
 
             }
-
+            let regHighlightList = this.state.mainDropDownMenuList.map((i) =>
+            {
+                return (i.name);
+            });
+            regHighlightList = regHighlightList.join("|");
             return (
                 {
-                    editorState:EditorState.createWithContent(ContentState.createFromText(aHolder.join(""))),
+                    editorState: EditorState.set(EditorState.createWithContent(ContentState.createFromText(aHolder.join(""))), { decorator: generateDecorator(regHighlightList) }),
                     showDropDownMenu: "none"
                 }
             );
         });
 
-       
-
-    }
-    onChangeEvent(e)
-    {
-        this.setState({
-            TagTextArea: e.target.value
-        }, () => { console.log("this.state.TagTextArea:" + this.state.TagTextArea) });
-        if (e.target.value === null || e.target.value === "")
-        {
-
-            this.setState(() =>
-            {
-                return {
-                    showDropDownMenu:
-                    "none"
-                }
-                console.log("onChangeEvent after " + prevState.showDropDownMenu);
-
-            });
-        } else
-        {
-            let strings = e.target.value.replace(/ /g, "~#*!");
-
-            let values = strings.split("~#");
-            //this.props.onChange(e);
-            if (values != null && values.length > 0)
-            {
-                console.log("values length:" + values.length.toString());
-                console.log("values:" + values);
-                let aLength = values.length - 1;
-                console.log("values" + aLength.toString() + ": " + values[aLength]);
-                let aTry = values[aLength].toLowerCase();
-                aTry = aTry.replace("*!", "");
-                let holder;
-                if (aTry.length > 0)
-                {
 
 
-                    holder = this.state.mainDropDownMenuList
-                        .filter(o => o.name.toLowerCase().indexOf(values[aLength].toLowerCase().replace("*!", "")) !== -1);
-                } else
-                {
-                    holder = this.state.mainDropDownMenuList
-                        .filter(o => o.name.toLowerCase().indexOf(values[aLength].toLowerCase()) !== -1);
-                }
-
-                if (holder !== null && holder.length > 0)
-                {
-                    console.log("holder:" + JSON.stringify(holder));
-                    //this.state.dropDownToShow.length = 0;
-                    this.setState(() =>
-                    {
-                        this.state.dropDownToShow.length = 0;
-                        return { dropDownToShow: holder.map((o) => { this.state.dropDownToShow.push(o) }) }
-                        //prevState.dropDownToShow = holder;
-
-                    }
-
-                    );
-                    this.setState((prevState) =>
-                    {
-                        return {
-                            dropDownToShow: this.state.dropDownToShow.filter(x => x != 'undefined')
-                        }
-                    });
-                    this.setState(() =>
-                    {
-                        console.log(JSON.stringify(this.state));
-                        return ({
-                            showDropDownMenu:
-                            "block"
-                        })
-
-                    });
-                } else
-                {
-                    this.setState(() =>
-                    {
-                        return {
-                            showDropDownMenu:
-                            "none",
-                            dropDownToShow: []
-                        }
-
-
-                    });
-
-                }
-
-                console.log(this.state.dropDownToShow);
-
-
-            }
-            else
-            {
-                this.setState(() =>
-                {
-                    return {
-                        showDropDownMenu:
-                        "none"
-                    }
-                    console.log("onChangeEvent after " + prevState.showDropDownMenu);
-
-                });
-            }
-        }
-        console.log("this.state.TagTextArea:" + this.state.TagTextArea);
     }
 
     onChange(e)
@@ -197,12 +127,7 @@ class TagTextArea extends React.Component
         });
 
 
-
-
-        //this.setState({
-        //    TagTextArea: e.target.value
-        //}, () => { console.log("this.state.TagTextArea:" + this.state.TagTextArea) });
-        if (e === null ||e.getCurrentContent().getPlainText() === null || e.getCurrentContent().getPlainText() === "")
+        if (e === null || e.getCurrentContent().getPlainText() === null || e.getCurrentContent().getPlainText() === "")
         {
 
             this.setState(() =>
@@ -214,15 +139,16 @@ class TagTextArea extends React.Component
                 console.log("onChange " + prevState.showDropDownMenu);
 
             });
-        } else {
+        } else
+        {
             let value = e.getCurrentContent().getPlainText();
 
-            console.log("Value:"+value);
+            console.log("Value:" + value);
 
             let strings = value.replace(/ /g, "~#*!");
 
             let values = strings.split("~#");
-            //this.props.onChange(e);
+
             if (values != null && values.length > 0)
             {
                 console.log("values length:" + values.length.toString());
@@ -247,12 +173,12 @@ class TagTextArea extends React.Component
                 if (holder !== null && holder.length > 0)
                 {
                     console.log("holder:" + JSON.stringify(holder));
-                    //this.state.dropDownToShow.length = 0;
+                 
                     this.setState(() =>
                     {
                         this.state.dropDownToShow.length = 0;
                         return { dropDownToShow: holder.map((o) => { this.state.dropDownToShow.push(o) }) }
-                        //prevState.dropDownToShow = holder;
+                     
 
                     }
 
@@ -307,48 +233,8 @@ class TagTextArea extends React.Component
         console.log("this.state.editorState:" + this.state.editorState.getCurrentContent().getPlainText());
     }
 
-    generateDecorator(item2Highlight)
-    {
-        const regex = new RegExp(highlightTerm, 'g');
-        return new CompositeDecorator([
-            {
-                strategy: (contentBlock, callback) =>
-                {
-                    if (highlightTerm !== '')
-                    {
-                        findWithRegex(regex, contentBlock, callback);
-                    }
-                },
-                component: SearchHighlight,
-            }
-        ]);
-    }
-
-    findWithRegex(regex, contentBlock, callback) {
-        const text = contentBlock.getText();
-        let matchArr, start, end;
-        while ((matchArr = regex.exec(text)) !== null)
-        {
-            start = matchArr.index;
-            end = start + matchArr[0].length;
-            callback(start, end);
-        }
-    };
 
 
-
-    //handleKeyCommand(command)
-    //{
-    //    const newState = RichUtils.handleKeyCommand(this.state.editorState, command);
-
-    //    if (newState)
-    //    {
-    //        this.onChange(newState);
-    //        return 'handled';
-    //    }
-
-    //    return 'not-handled';
-    //}
     render()
     {
         return (
@@ -362,7 +248,7 @@ class TagTextArea extends React.Component
 
 
                 <Editor editorState={this.state.editorState}
-                    className="editor-look" onChange={(e) => this.onChange(e)}/>
+                    className="editor-look" onChange={(e) => this.onChange(e)} />
 
 
                 <DropDownMenu displayType={this.state.showDropDownMenu}
